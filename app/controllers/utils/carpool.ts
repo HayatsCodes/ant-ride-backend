@@ -106,11 +106,13 @@ export function create_google_maps_route_link(geoapify_response: any,
   return google_map_route_links
 }
 
-export async function geoapify_create_optimized_carpools(data: any, riders: any, drivers: any) {
+export async function geoapify_create_optimized_carpools(data: any, riders: any, drivers: any ) {
   // confirmed participants only, time to make carpools
   let drivers_formatted = drivers.map(async (driver: any) => {
     const split_driver_address = driver.address.split('|')
     const event_address = data[0].address.split('|')
+
+    const max_added_time = driver.max_added_time
 
     // create a pipe separated string of lat, long for each pickup point for a driver, in order of pickup
     const GEOAPIFY_KEY = Env.get("GEOAPIFY_KEY")
@@ -137,7 +139,7 @@ export async function geoapify_create_optimized_carpools(data: any, riders: any,
         [
           0,
           // add 20 mins on top of normal driving time
-          normal_driving_time + 1200
+          normal_driving_time + max_added_time
         ]
       ],
       "pickup_capacity": driver.seats_available,

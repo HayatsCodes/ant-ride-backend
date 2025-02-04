@@ -27,6 +27,7 @@ export const JoinParticipantsValidator = vine.compile(
     can_pickup: vine.boolean(),
     phone_num: vine.string().maxLength(10),
     seats_available: vine.number().withoutDecimals().min(0).max(7),
+    max_added_time: vine.number().optional()
   })
 )
 

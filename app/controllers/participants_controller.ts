@@ -60,6 +60,7 @@ export default class ParticipantsController {
         can_pickup: payload.can_pickup,
         seats_available: payload.seats_available,
         phone_num: payload.phone_num,
+        max_added_time: payload.max_added_time || null,
       })
       .select()
 
@@ -69,6 +70,7 @@ export default class ParticipantsController {
         message: `Unable to join carpool, error message: ${error.message}`,
       })
     } else {
+      console.log(data)
       return response.ok({
         status: 'success',
         message: 'Carpool joined successfully!',
